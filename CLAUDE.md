@@ -10,7 +10,7 @@ This is a Flask-based web application for a job application form (Udemy – App 
 - [x] 376. Today
 - [x] 377. Creating the App Structure
 - [x] 378. Connecting the Python Backend to the HTML Part
-- [ ] 379. Building the Form
+- [x] 379. Building the Form
 - [ ] 380. Bootstrap Style
 - [ ] 381–386. Backend (database, notifications, email)
 
