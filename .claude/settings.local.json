@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(printf:*)",
+      "Bash(cmd /c \"echo test\")"
+    ]
+  }
+}
