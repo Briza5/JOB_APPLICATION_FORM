@@ -1,6 +1,7 @@
 # Import the Flask class from the flask module
 from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
 
 # Create an instance of the Flask class, passing the name of the module as an argument
 app = Flask(__name__)
@@ -31,7 +32,16 @@ def index():
         last_name = request.form.get('last_name')
         email = request.form.get('email')
         date = request.form.get('date')
+        # Convert string to date object
+        date_obj = datetime.strptime(date, '%Y-%m-%d').date()
         occupation = request.form.get('occupation')
+
+        # Create a new Form instance with the submitted data and add it to the database
+        form = Form(first_name=first_name, last_name=last_name,
+                    email=email, date=date_obj, occupation=occupation)
+        db.session.add(form)
+        db.session.commit()
+
     # Render the index.html template when the root URL is accessed
     return render_template('index.html')
 
