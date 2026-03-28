@@ -1,8 +1,26 @@
 # Import the Flask class from the flask module
 from flask import Flask, render_template, request
+from flask_sqlalchemy import SQLAlchemy
 
 # Create an instance of the Flask class, passing the name of the module as an argument
 app = Flask(__name__)
+
+# Set the secret key for the Flask application and configure the SQLAlchemy database URI
+app.config["SECRET_KEY"] = "myapp123"
+app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///data.db"
+# Create an instance of the SQLAlchemy class, passing the Flask app as an argument
+db = SQLAlchemy(app)
+
+# Define a model class for the form data, which will be stored in the database
+
+
+class Form(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    first_name = db.Column(db.String(100), nullable=False)
+    last_name = db.Column(db.String(100), nullable=False)
+    email = db.Column(db.String(120), nullable=False)
+    date = db.Column(db.Date, nullable=False)
+    occupation = db.Column(db.String(100), nullable=False)
 
 
 @app.route('/', methods=['GET', 'POST'])  # Define a route for the root URL
@@ -18,5 +36,8 @@ def index():
     return render_template('index.html')
 
 
-# Run the Flask app on port 50001 with debug mode enabled
-app.run(debug=True, port=50001)
+if __name__ == '__main__':
+    with app.app_context():
+        db.create_all()  # Create the database tables if they don't exist
+        # Run the Flask app on port 50001 with debug mode enabled
+        app.run(debug=True, port=50001)
