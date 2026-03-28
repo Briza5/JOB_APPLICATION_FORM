@@ -1,5 +1,5 @@
 # Import the Flask class from the flask module
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, flash
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
@@ -41,6 +41,9 @@ def index():
                     email=email, date=date_obj, occupation=occupation)
         db.session.add(form)
         db.session.commit()
+        # Flash a success message to the user
+        flash(
+            f"{first_name} {last_name}, your form was submitted successfully!", 'success')
 
     # Render the index.html template when the root URL is accessed
     return render_template('index.html')
